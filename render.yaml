@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: neon-drifts-pdf-api
+    env: node
+    region: frankfurt  # closest to Lahore
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PDF_API_SECRET
+        sync: false   # set manually in Render dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false   # set manually in Render dashboard
+    healthCheckPath: /health

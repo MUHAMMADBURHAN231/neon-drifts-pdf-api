@@ -13,46 +13,33 @@ interface SlipData {
 export function slipHTML(order: SlipData): string {
   return `
 <div class="slip">
-
-  <!-- ZONE 1: Header — white background, black border box -->
   <div class="header">
-    <!-- Left: orange rounded rectangle with NEON DRIFTS -->
     <div class="brand-block">
       <span class="brand-text">NEON DRIFTS</span>
     </div>
-
-    <!-- Centre: ND circle logo -->
     <div class="logo-circle">
-      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
-        <circle cx="40" cy="40" r="36" stroke="#E8500A" stroke-width="3" fill="white"/>
-        <text x="40" y="51" text-anchor="middle"
-          font-family="'Black Han Sans', 'Barlow Condensed', sans-serif"
-          font-size="30" font-weight="900" fill="#E8500A">ND</text>
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+        <circle cx="40" cy="40" r="38" stroke="#E8500A" stroke-width="2.5" fill="white"/>
+        <text x="38" y="52" text-anchor="middle" font-family="'Black Han Sans', 'Arial Black', sans-serif" font-size="34" font-weight="900" fill="#E8500A">ND</text>
       </svg>
     </div>
-
-    <!-- Right: Waybill No label + orange pill -->
     <div class="waybill-block">
       <span class="waybill-label"><em>Waybill No:</em></span>
       <div class="waybill-pill">${order.order_id}</div>
     </div>
   </div>
 
-  <!-- ZONE 2: Body split left/right -->
   <div class="body-row">
-
-    <!-- LEFT: Receiver info -->
     <div class="receiver-col">
       <div class="receiver-label">RECEIVER:</div>
       <div class="customer-name">${order.customer_name}</div>
       <div class="address">${order.address.replace(/\n/g, '<br/>')}</div>
       <div class="phone">${order.phone}</div>
-      ${order.notes ? `<div class="notes">${order.notes}</div>` : ''}
+      ${order.notes ? `<div class="notes">Note: ${order.notes}</div>` : ''}
     </div>
 
-    <!-- RIGHT: COD + QR + icons -->
     <div class="cod-col">
-      <div class="cod-top">
+      <div class="cod-inner">
         <div class="cod-left">
           <div class="cod-label">COD STATUS/AMOUNT:</div>
           <div class="cod-amount">${order.cod_amount.toLocaleString()}</div>
@@ -63,27 +50,22 @@ export function slipHTML(order: SlipData): string {
           <img src="data:image/png;base64,${order.qr_base64}" class="qr-img" alt="QR"/>
         </div>
       </div>
-      <!-- Icons row — orange pill container with 4 icons -->
       <div class="icons-container">
-        <!-- Fragile / broken glass -->
         <div class="icon-box">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="black">
             <path d="M7 2h10l-1 7 3 3-7 10-7-10 3-3L7 2zm2.5 2l.7 5-2.5 2.5L12 19l4.3-7.5L13.8 9l.7-5H9.5z"/>
           </svg>
         </div>
-        <!-- This way up / arrows -->
         <div class="icon-box">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="black">
             <path d="M8 11V17H16V11H20L12 3L4 11H8ZM8 19V21H16V19H8Z"/>
           </svg>
         </div>
-        <!-- Handle with care / hands -->
         <div class="icon-box">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="black">
             <path d="M12 3c-1.1 0-2 .9-2 2v6.5l-1.3-1.3c-.6-.6-1.5-.6-2.1 0-.6.6-.6 1.5 0 2.1l4.1 4.1c.8.8 1.9 1.3 3 1.3h2c1.7 0 3-1.3 3-3V9c0-1.1-.9-2-2-2-.3 0-.6.1-.9.2C15.7 6.5 14.9 6 14 6c-.4 0-.8.1-1.1.3C12.6 5.5 12.3 5 12 5V3z"/>
           </svg>
         </div>
-        <!-- Keep dry / umbrella -->
         <div class="icon-box">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="black">
             <path d="M12 2C7 2 3 6.5 3 12h9V2zm0 0c5 0 9 4.5 9 10h-9V2zM11 16c0 .6.4 1 1 1s1-.4 1-1v-4h-2v4z"/>
@@ -91,10 +73,8 @@ export function slipHTML(order: SlipData): string {
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- ZONE 3: Footer -->
   <div class="footer-row">
     <div class="footer-left">
       <span class="footer-bold">TRACK ONLINE</span>
@@ -108,7 +88,6 @@ export function slipHTML(order: SlipData): string {
       <span class="footer-bold">SCAN ABOVE</span>
     </div>
   </div>
-
 </div>
 `
 }
@@ -131,9 +110,10 @@ body {
   background: white;
   display: flex;
   flex-direction: column;
-  border: 2.5px solid black;
+  border: 4px solid black;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 0;
 }
 
 /* ── ZONE 1: HEADER ── */
@@ -141,16 +121,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  border-bottom: 2.5px solid black;
+  padding: 12px 24px;
+  border-bottom: 3px solid black;
   background: white;
-  min-height: 58px;
-  gap: 12px;
+  min-height: 70px;
 }
 
 .brand-block {
   background: #E8500A;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 8px 20px;
   display: flex;
   align-items: center;
@@ -172,20 +151,20 @@ body {
 .waybill-block {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
   flex-shrink: 0;
 }
 .waybill-label {
-  font-size: 13px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 700;
+  font-weight: 800;
   color: black;
 }
 .waybill-pill {
   background: #E8500A;
   border-radius: 8px;
-  padding: 5px 16px;
+  padding: 4px 16px;
   font-family: 'Black Han Sans', Arial Black, sans-serif;
   font-size: 26px;
   font-weight: 900;
@@ -193,6 +172,8 @@ body {
   color: black;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  min-width: 120px;
+  text-align: center;
 }
 
 /* ── ZONE 2: BODY ── */
@@ -200,91 +181,92 @@ body {
   display: flex;
   flex: 1;
   overflow: hidden;
+  background: white;
 }
 
 /* LEFT col */
 .receiver-col {
-  width: 52%;
-  padding: 12px 16px;
-  border-right: 2.5px solid black;
+  width: 50%;
+  padding: 20px 24px;
+  border-right: 3px solid black;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
 }
 .receiver-label {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
   color: black;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 .customer-name {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: black;
   line-height: 1.2;
 }
 .address {
-  font-size: 12.5px;
-  color: #222;
-  line-height: 1.55;
-  flex: 1;
+  font-size: 15px;
+  color: #111;
+  line-height: 1.5;
 }
 .phone {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 900;
   color: black;
   margin-top: 4px;
   letter-spacing: 0.02em;
 }
 .notes {
-  font-size: 11px;
-  color: #666;
+  font-size: 14px;
+  color: #444;
   font-style: italic;
+  margin-top: 6px;
 }
 
 /* RIGHT col */
 .cod-col {
-  width: 48%;
-  padding: 10px 12px;
+  width: 50%;
+  padding: 20px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.cod-top {
+.cod-inner {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 8px;
-  flex: 1;
+  gap: 12px;
 }
 .cod-left {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .cod-label {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.03em;
   color: black;
   text-transform: uppercase;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
   line-height: 1.2;
 }
 .cod-amount {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 52px;
+  font-size: 56px;
   font-weight: 900;
   color: black;
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .declared-label {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.03em;
   color: black;
@@ -292,34 +274,36 @@ body {
   margin-bottom: 2px;
 }
 .declared-value {
-  font-size: 13px;
+  font-size: 15px;
   color: #222;
 }
 .qr-wrap {
   flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 .qr-img {
-  width: 82px;
-  height: 82px;
+  width: 110px;
+  height: 110px;
   display: block;
 }
 
 /* Icons container — orange pill with 4 icons */
 .icons-container {
   background: #E8500A;
-  border-radius: 10px;
-  padding: 6px 10px;
+  border-radius: 8px;
+  padding: 8px 16px;
   display: flex;
-  gap: 8px;
+  gap: 16px;
   align-items: center;
-  justify-content: center;
-  margin-top: 6px;
+  justify-content: flex-end;
+  align-self: flex-end;
+  margin-top: auto;
 }
 .icon-box {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border: 2px solid black;
-  border-radius: 5px;
   background: #E8500A;
   display: flex;
   align-items: center;
@@ -331,23 +315,23 @@ body {
 .footer-row {
   display: flex;
   align-items: center;
-  border-top: 2.5px solid black;
-  padding: 5px 16px;
-  min-height: 28px;
+  border-top: 3px solid black;
+  padding: 10px 24px;
+  min-height: 42px;
   background: white;
 }
 .footer-left {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 .footer-centre {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
 }
 .footer-right {
   flex: 1;
@@ -357,18 +341,17 @@ body {
 }
 .footer-bold {
   font-family: 'Black Han Sans', Arial Black, sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 900;
   color: black;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 .footer-normal {
-  font-size: 13px;
+  font-size: 15px;
   color: #222;
 }
 
-/* Cut line between two slips on same A4 page */
 .cut-line {
   width: 210mm;
   height: 0;
@@ -388,3 +371,4 @@ body {
   font-family: Arial, sans-serif;
   letter-spacing: 0.1em;
 }
+`

@@ -108,32 +108,33 @@ body {
 
 .slip {
   width: 210mm;
-  height: 148.5mm;
+  /* DONT set fixed height so the border perfectly encapsulates the content */
   background: white;
   display: flex;
   flex-direction: column;
   border: 3px solid black;
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
+  margin-bottom: 5mm; /* To separate slips slightly if rendering multiple */
 }
 
 .zone1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 14px 20px;
   border-bottom: 3px solid black;
   background: white;
-  height: 88px;
-  gap: 10px;
+  /* Removed fixed height so it scales nicely */
+  gap: 15px;
   flex-shrink: 0;
 }
 .brand-pill {
   background: #E8500A;
   border-radius: 12px;
-  padding: 10px 22px;
+  padding: 12px 26px;
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 42px;
+  font-size: 46px;
   font-weight: 700;
   color: black;
   letter-spacing: 0.01em;
@@ -141,14 +142,14 @@ body {
   line-height: 1;
 }
 .nd-logo { flex-shrink: 0; }
-.waybill { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
-.waybill-label { font-size: 13px; font-style: italic; font-weight: 700; color: black; }
+.waybill { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.waybill-label { font-size: 15px; font-style: italic; font-weight: 700; color: black; }
 .waybill-pill {
   background: #E8500A;
   border-radius: 8px;
-  padding: 5px 16px;
+  padding: 6px 18px;
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   font-style: italic;
   color: black;
@@ -157,56 +158,60 @@ body {
   line-height: 1.1;
 }
 
-.zone2 { display: flex; flex: 1; overflow: hidden; }
+/* Removed flex: 1 so it doesn't stretch down */
+.zone2 { display: flex; overflow: hidden; }
 
 .left-col {
   width: 52%;
   border-right: 3px solid black;
-  padding: 12px 16px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px; /* Elements will neatly stack on top of each other */
 }
 .receiver-label {
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 17px; font-weight: 700; color: black; letter-spacing: 0.04em;
+  font-size: 19px; font-weight: 700; color: black; letter-spacing: 0.04em; margin-bottom: 4px;
 }
-.cust-name { font-size: 19px; font-weight: 700; color: black; line-height: 1.2; margin-top: 2px; }
-.cust-address { font-size: 13px; color: #111; line-height: 1.6; flex: 1; }
+.cust-name { font-size: 21px; font-weight: 700; color: black; line-height: 1.2; }
+/* REMOVED flex: 1 from address */
+.cust-address { font-size: 15px; color: #111; line-height: 1.5; margin-bottom: 6px; }
 .cust-phone {
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 22px; font-weight: 700; color: black; letter-spacing: 0.02em; margin-top: 4px;
+  font-size: 26px; font-weight: 700; color: black; letter-spacing: 0.02em;
 }
 
-.right-col { width: 48%; padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; }
-.right-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; flex: 1; }
+/* Removed justify-content: space-between */
+.right-col { width: 48%; padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
+/* Removed flex: 1 */
+.right-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .right-top-left { flex: 1; }
 .cod-label {
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: black;
-  text-transform: uppercase; margin-bottom: 2px; line-height: 1.2;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: black;
+  text-transform: uppercase; margin-bottom: 4px; line-height: 1.2;
 }
 .cod-amount {
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 56px; font-weight: 700; color: black; line-height: 1; margin-bottom: 8px;
+  font-size: 58px; font-weight: 700; color: black; line-height: 1; margin-bottom: 12px;
 }
 .declared-label {
   font-family: 'Oswald', Arial Black, sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: black;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: black;
   text-transform: uppercase; margin-bottom: 2px;
 }
-.declared-val { font-size: 13px; color: #222; }
-.qr-block { flex-shrink: 0; }
+.declared-val { font-size: 15px; color: #222; }
+.qr-block { flex-shrink: 0; margin-top: -5px; } /* Slightly lift QR code to perfectly align visually */
 
 .icons-pill {
   background: #E8500A;
   border-radius: 10px;
-  padding: 6px 8px;
+  padding: 8px 10px;
   display: flex;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
-  margin-top: 6px;
+  align-self: flex-end; /* Align to the right perfectly under the QR code */
   flex-shrink: 0;
 }
 .icon-cell {
